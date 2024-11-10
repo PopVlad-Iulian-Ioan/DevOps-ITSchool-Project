@@ -27,3 +27,4 @@ docker rmi devops-itschool-project_python-service devops-itschool-project_bash-s
 D. 
 
 ansible-playbook -i inventory deploy-playbook.yaml --ask-become-pass
+ansible-playbook -i inventory cleanup-playbook.yaml --ask-become-pass
