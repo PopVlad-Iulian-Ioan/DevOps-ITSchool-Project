@@ -1,13 +1,45 @@
-- name: Deploy Docker Compose
-  hosts: localhost
-
+- name: Deploy Docker and Docker Compose 
+  hosts: local
+  become: true
   tasks:
-    - name: Create a new file for deployment
+    - name: Update package index
+      apt:
+        update_cache: yes
+
+    - name: Install prerequisites for Docker installation
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker’s official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker and Docker Compose plugin
+      apt:
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+
+    - name: Create a new directory for deployment
       file:
         path: ~/docker_services
         state: directory
 
-    - name: Copy the files to the new directory
+    - name: Copy deployment files to the new directory
       copy:
         src: "{{ item }}"
         dest: ~/docker_services/
@@ -18,7 +50,7 @@
         - Dockerfile-python
         - docker-compose.yaml
 
-    - name: Start Docker Compose
+    - name: Start Docker Compose services
       community.docker.docker_compose:
         project_src: ~/docker_services
         state: present

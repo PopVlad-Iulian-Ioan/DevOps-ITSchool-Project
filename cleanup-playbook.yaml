@@ -1,16 +1,16 @@
 - name: Clean up Docker Compose deployment
-  hosts: localhost
-
+  hosts: local
+  become: true
   tasks:
     - name: Stop Docker Compose services
       community.docker.docker_compose:
         project_src: ~/docker_services
-        state: absent 
+        state: absent
 
     - name: Remove the files copied during deployment
       file:
         path: "{{ item }}"
-        state: absent 
+        state: absent
       with_items:
         - ~/docker_services/bash-script.sh
         - ~/docker_services/python-script.py
@@ -21,7 +21,7 @@
     - name: Remove the directory created for deployment
       file:
         path: ~/docker_services
-        state: absent 
+        state: absent
 
     - name: Remove Docker images
       docker_image:
@@ -32,3 +32,29 @@
         - docker_services_bash-service
         - python:3.10-slim
         - ubuntu
+
+    - name: Stop and remove Docker service
+      service:
+        name: docker
+        state: stopped
+        enabled: no
+
+    - name: Uninstall Docker and Docker Compose plugin
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: absent
+        purge: yes
+
+    - name: Remove Docker GPG key
+      file:
+        path: /etc/apt/keyrings/docker.asc
+        state: absent
+
+    - name: Remove Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: absent
