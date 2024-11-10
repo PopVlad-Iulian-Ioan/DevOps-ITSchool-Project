@@ -1,6 +1,5 @@
 - name: Clean up Docker Compose deployment
   hosts: localhost
-  become: true 
 
   tasks:
     - name: Stop Docker Compose services
@@ -23,3 +22,13 @@
       file:
         path: ~/docker_services
         state: absent 
+
+    - name: Remove Docker images
+      docker_image:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - docker_services_python-service
+        - docker_services_bash-service
+        - python:3.10-slim
+        - ubuntu

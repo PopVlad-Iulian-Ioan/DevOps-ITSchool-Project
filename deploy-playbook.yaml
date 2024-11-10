@@ -1,6 +1,6 @@
 - name: Deploy Docker Compose
   hosts: localhost
-  become: true
+
   tasks:
     - name: Create a new file for deployment
       file:
