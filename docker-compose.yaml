@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bash-service:
+    build:
+      context: .
+      dockerfile: Dockerfile-bash
+    container_name: bash_container
+
+  python-service:
+    build:
+      context: .
+      dockerfile: Dockerfile-python
+    container_name: python_container

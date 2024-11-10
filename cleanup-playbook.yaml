@@ -1,0 +1,25 @@
+- name: Clean up Docker Compose deployment
+  hosts: localhost
+  become: true 
+
+  tasks:
+    - name: Stop Docker Compose services
+      community.docker.docker_compose:
+        project_src: ~/docker_services
+        state: absent 
+
+    - name: Remove the files copied during deployment
+      file:
+        path: "{{ item }}"
+        state: absent 
+      with_items:
+        - ~/docker_services/bash-script.sh
+        - ~/docker_services/python-script.py
+        - ~/docker_services/Dockerfile-bash
+        - ~/docker_services/Dockerfile-python
+        - ~/docker_services/docker-compose.yaml
+
+    - name: Remove the directory created for deployment
+      file:
+        path: ~/docker_services
+        state: absent 
