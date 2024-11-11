@@ -7,14 +7,16 @@
 bash bash-script.sh
 
 # Run the Python script
-python3 python-script.p
+python3 python-script.py
+
+```
 
 # Project Setup and Execution Guide
 
 
 ## B. Run the Python Scripts in a Docker Container
 
-### 1. Install Docker
+# Install Docker
 
 # To install Docker on your system, run the following commands:
 
@@ -58,6 +60,7 @@ docker rm cont-python cont-bash
 # Remove the images
 docker rmi img-python img-bash
 
+```
 
 
 ## C. Run the Scripts in a Docker Compose Deployment
@@ -86,7 +89,7 @@ docker-compose down
 # Remove the images
 docker rmi devops-itschool-project_python-service devops-itschool-project_bash-service
 
-
+```
 
 ## D. Run Playbooks Using Ansible
 
@@ -101,4 +104,6 @@ ansible-playbook -i inventory deploy-playbook.yaml --ask-become-pass
 
 # Run the cleanup playbook
 ansible-playbook -i inventory cleanup-playbook.yaml --ask-become-pass
+
+```
 
