@@ -1,24 +1,25 @@
-# A. Run the Scripts Directly
+# A. Raw Scripts
 
-## To run the scripts directly without Docker:
+## Run the Scripts Directly:
 
-
-##  Run the Bash script
+###  Run the Bash script
 
 ```bash
 bash bash-script.sh
 ```
 
-##  Run the Python script
+###  Run the Python script
 
 ```bash
 python3 python-script.py
 ```
 
 
-# B. Run the Python Scripts in a Docker Container
+# B. Docker
 
-##  Install Docker
+## Run the Python Scripts in a Docker Container:
+
+###   Install Docker
 
 ```bash
 sudo apt update
@@ -27,67 +28,70 @@ sudo apt install docker
 
 
 
-##  Build the Docker image
+###   Build the Docker image
 
 ```bash
 docker build -f Dockerfile-python -t img-python .
 ```
 
-##  Run the container
+###   Run the container
 
 ```bash
 docker run -d --name cont-python img-python
 ```
 
-##  Check the logs
+###   Check the logs
 
 ```bash
 docker logs cont-python
 ```
 
 
-##  To run the Bash script in a Docker container, use the following steps:
+## Run the Bash Scripts in a Docker Container:
 
 
-##  Build the Docker image
+###   Build the Docker image
 
 ```bash
 docker build -f Dockerfile-bash -t img-bash .
 ```
 
-##  Run the container
+###   Run the container
 ```bash
 docker run -d --name cont-bash img-bash
 ```
 
-##  Check the logs
+###   Check the logs
 
 ```bash
 docker logs cont-bash
 ```
-##  To cleanup all the resources created by Docker:
 
-##  Stop the containers
+##  Cleanup all the resources created by Docker:
+
+###   Stop the containers
 
 ```bash
 docker stop cont-python cont-bash
 ```
-##  Remove the containers
+###   Remove the containers
 
 ```bash
 docker rm cont-python cont-bash
 ```
 
-##  Remove the images
+###   Remove the images
 
 ```bash
 docker rmi img-python img-bash
 ```
 
 
-## C. Run the Scripts in a Docker Compose Deployment
+# C. Docker Compose 
 
-##  Install Docker Compose
+## Run the scripts in a Docker Compose Deplyoment:
+
+###   Install Docker Compose
 
 ```bash
 sudo apt update
@@ -95,14 +99,14 @@ sudo apt install docker-compose
 ```
 
 
-##  Build and start the Docker Compose services
+###   Build and start the Docker Compose services
 
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-##  Check the logs
+###   Check the logs
 
 ```bash
 docker-compose logs
@@ -111,34 +115,36 @@ docker-compose logs
 
 ## To cleanup all the resources created by Docker Compose:
 
-##  Bring down the Docker Compose services
+###   Bring down the Docker Compose services
 
 ```bash
 docker-compose down
 ```
 
-##  Remove the images
+###   Remove the images
 
 ```bash
 docker rmi devops-itschool-project_python-service devops-itschool-project_bash-service
 ```
 
-# D. Run Playbooks Using Ansible
+# D. Ansible
 
-# To install Ansible on your system, run the following commands:
+## Run Playbooks Using Ansible:
+
+### Install Ansible
 
 ```bash
 sudo apt update
 sudo apt install ansible
 ```
 
-##  Run the deployment playbook
+###   Run the deployment playbook
 
 ```bash
 ansible-playbook -i inventory deploy-playbook.yaml --ask-become-pass
 ```
 
-## Run the cleanup playbook
+###  Run the cleanup playbook
 
 ```bash
 ansible-playbook -i inventory cleanup-playbook.yaml --ask-become-pass
