@@ -12,6 +12,6 @@ RUN pip install \
 # Copy the Python script
 COPY python-script.py /python-script.py
 
-# Run the script and keep the container alive
+# Run the script and unbuffer the output
 CMD ["python3", "-u", "/python-script.py"]
 
