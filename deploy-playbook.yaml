@@ -51,6 +51,6 @@
         - docker-compose.yaml
 
     - name: Start Docker Compose services
-      community.docker.docker_compose:
+      community.docker.docker_compose_v2:
         project_src: ~/docker_services
         state: present
