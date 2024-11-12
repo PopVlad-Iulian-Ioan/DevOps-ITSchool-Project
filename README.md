@@ -141,13 +141,13 @@ sudo apt install ansible
 ###   Run the deployment playbook
 
 ```bash
-ansible-playbook -i -k -K inventory deploy-playbook.yaml --ask-become-pass
+ansible-playbook -i  inventory deploy-playbook.yaml -k -K
 ```
 
 ###  Run the cleanup playbook
 
 ```bash
-ansible-playbook -i -k -K inventory cleanup-playbook.yaml 
+ansible-playbook -i inventory cleanup-playbook.yaml -k -K 
 ```
 
 
